@@ -15,10 +15,10 @@ LEVELS = (
     (24, 99)
 )
 
-IMG_BOMB = QImage('C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/bomb.png')
-IMG_CLOCK = QImage('C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/clock.png')
-IMG_START = QImage('C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/rocket.png')
-IMG_FLAG = QImage('C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/flag.png')
+IMG_BOMB = QImage('./images/bomb.png')
+IMG_CLOCK = QImage('./images/clock.png')
+IMG_START = QImage('./images/rocket.png')
+IMG_FLAG = QImage('./images/flag.png')
 
 STATUS_READY = 0
 STATUS_PLAY = 1
@@ -26,10 +26,10 @@ STATUS_FAILED = 2
 STATUS_SUCCESS = 3
 
 STATUS_ICONS = {
-    STATUS_READY: "C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/plus.png",
-    STATUS_PLAY: "C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/smiley.png",
-    STATUS_FAILED: "C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/cross.png",
-    STATUS_SUCCESS: "C:/Users/Ilya/Desktop/PyQt5/Test/pyqt-saper-2022-main/images/smiley-lol.png",
+    STATUS_READY: "./images/plus.png",
+    STATUS_PLAY: "./images/smiley.png",
+    STATUS_FAILED: "./images/cross.png",
+    STATUS_SUCCESS: "./images/smiley-lol.png",
 }
 
 class MainWindow(QMainWindow):
@@ -72,13 +72,29 @@ class MainWindow(QMainWindow):
         self.button.setIcon(QIcon('./images/smiley.png'))
         self.button.setFlat(True)
 
+        
+        self.l = QLabel()
+        self.l.setPixmap(QPixmap.fromImage(IMG_BOMB))
+        self.l.setAlignment(Qt.AlignCenter)
+
+
+
+        hb.addWidget(self.l)
         hb.addWidget(self.mines)
         hb.addWidget(self.button)
         hb.addWidget(self.clock)
+        self.l = QLabel()
+        self.l.setPixmap(QPixmap.fromImage(IMG_CLOCK))
+        self.l.setAlignment(Qt.AlignCenter)
+        hb.addWidget(self.l)
 
         vb = QVBoxLayout()
         vb.addLayout(hb)
 
+
+        self.grid = QGridLayout()
+        self.grid.setSpacing(5)
+        vb.addLayout(self.grid)
         w.setLayout(vb)
         self.setCentralWidget(w)
 
