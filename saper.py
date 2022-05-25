@@ -44,6 +44,7 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("saper")
         self.setFixedSize(300,300)
+        self.initUI()
         self.show()
 
     
@@ -54,16 +55,32 @@ class MainWindow(QMainWindow):
         hb = QHBoxLayout()
 
 
-        self.mines = QLabael(str(self.n_mines))
-        self.mines.setAligment(Qt.Alignment)   
+        self.mines = QLabel(str(self.n_mines))
+        self.mines.setAlignment(Qt.AlignCenter)   
         self.clock = QLabel("000")
-        self.clock.setAlignment(Qt.Alignment)
+        self.clock.setAlignment(Qt.AlignCenter)
         
         f = self.mines.font()
         f.setPointSize(24)
-        f.setPointWeight(75)
-        
+        f.setWeight(75)
+        self.mines.setFont(f)
+        self.clock.setFont(f)
 
+        self.button = QPushButton()
+        self.button.setFixedSize(32, 32)
+        self.button.setIconSize(QSize(32,32))
+        self.button.setIcon(QIcon('./images/smiley.png'))
+        self.button.setFlat(True)
+
+        hb.addWidget(self.mines)
+        hb.addWidget(self.button)
+        hb.addWidget(self.clock)
+
+        vb = QVBoxLayout()
+        vb.addLayout(hb)
+
+        w.setLayout(vb)
+        self.setCentralWidget(w)
 
 
 
