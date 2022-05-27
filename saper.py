@@ -2,6 +2,7 @@
 Игра "Сапер" на PyQt5
 """
 
+from email.charset import QP
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -43,8 +44,9 @@ class MainWindow(QMainWindow):
         self.board_size, self.n_mines = LEVELS[self.level]
 
         self.setWindowTitle("saper")
-        self.setFixedSize(300,300)
         self.initUI()
+        self.init_map()
+        self.setFixedSize(self.sizeHint())
         self.show()
 
     
@@ -97,6 +99,44 @@ class MainWindow(QMainWindow):
         vb.addLayout(self.grid)
         w.setLayout(vb)
         self.setCentralWidget(w)
+    
+
+    def init_map(self):
+        for x in range(self.board_size):
+            for y in range(self.board_size):
+                w = Cell(x,y)
+                self.grid.addWidget(w,x,y)
+
+
+
+
+class Cell(QWidget):
+    """
+    Клетка игрового поля
+    """
+    def __init__(self,x,y, *args, **kwargs):
+        """
+        Конструктор игрового поля
+        """
+
+        super().__init__(*args, **kwargs)
+        self.setFixedSize(20,20)
+
+        self.x = x 
+        self.y = y
+
+    
+    def paintEvent(self, event):
+        p = QPainter(self)
+        p.setRenderHint(QPainter.Antialiasing)
+        r = event.rect()
+        outer, inner = Qt.gray, Qt.lightGray
+        p.fillRect(r, QBrush(inner))
+        pen = QPen(outer)
+        pen.setWidth(1)
+        p.setPen(pen)
+        p.drawRect(r)
+
 
 
 
